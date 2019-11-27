@@ -35,4 +35,8 @@ public abstract class DiModule {
 
         return null;
     }
+
+    protected <T> T get(Class targetClass) {
+        return Di.inject(targetClass);
+    }
 }

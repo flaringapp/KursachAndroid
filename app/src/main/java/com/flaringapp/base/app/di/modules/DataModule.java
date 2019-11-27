@@ -1,6 +1,9 @@
 package com.flaringapp.base.app.di.modules;
 
 import com.flaringapp.base.app.di.DiModule;
+import com.flaringapp.base.data.treeSplitter.impl.TextTreeSplitterImpl;
+import com.flaringapp.base.data.treeSplitter.impl.validators.SplitterValidator;
+import com.flaringapp.base.data.treeSplitter.impl.validators.SplitterValidatorImpl;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,7 +19,8 @@ public final class DataModule extends DiModule {
     @Override
     protected List<Object> provideSingles() {
         return Arrays.asList(
-
+                new TextTreeSplitterImpl(get(SplitterValidator.class)),
+                new SplitterValidatorImpl()
         );
     }
 
