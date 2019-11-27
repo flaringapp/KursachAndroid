@@ -14,14 +14,14 @@ public final class DataModule extends DiModule {
     }
 
     @Override
-    public List<Object> provideSingles() {
+    protected List<Object> provideSingles() {
         return Arrays.asList(
 
         );
     }
 
     @Override
-    public HashMap<Class, Callable<Object>> provideFactories() {
+    protected HashMap<Class, Callable<Object>> provideFactories() {
         return new HashMap<Class, Callable<Object>>() {
 
         };

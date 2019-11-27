@@ -18,14 +18,14 @@ public final class PresentationModule extends DiModule {
     }
 
     @Override
-    public List<Object> provideSingles() {
+    protected List<Object> provideSingles() {
         return Arrays.asList(
 
         );
     }
 
     @Override
-    public HashMap<Class, Callable<Object>> provideFactories() {
+    protected HashMap<Class, Callable<Object>> provideFactories() {
         HashMap<Class, Callable<Object>> hashMap = new HashMap<>();
         hashMap.put(HomeContract.PresenterContract.class, HomePresenter::new);
         hashMap.put(MainContract.PresenterContract.class, MainPresenter::new);
