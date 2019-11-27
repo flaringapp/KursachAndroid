@@ -21,10 +21,10 @@ public final class Di {
         }
     }
 
-    public static <T> T inject(Class targetClass) {
+    public static <T> T inject(Class targetClass, Object... args) {
         try {
             for (DiModule module : modules) {
-                Object dependency = module.ProvideDependency(targetClass);
+                Object dependency = module.ProvideDependency(targetClass, args);
                 if (dependency != null) return (T) dependency;
             }
             throw new MissingDependencyException(targetClass.getName());

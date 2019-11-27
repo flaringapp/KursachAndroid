@@ -11,7 +11,7 @@ import java.util.concurrent.Callable;
 public abstract class DiModule {
 
     private final List<Object> singles = new ArrayList<>();
-    private final HashMap<Class, Callable<Object>> factories = new HashMap<>();
+    private final HashMap<Class, Provider<Object>> factories = new HashMap<>();
 
     public final void init() {
         initSingles();
@@ -26,20 +26,20 @@ public abstract class DiModule {
 
     protected void initFactories() {}
 
-    final void addFactory(Class targetClass, Callable<Object> factory) {
+    final void addFactory(Class targetClass, Provider<Object> factory) {
         factories.put(targetClass, factory);
     }
 
-    public final Object ProvideDependency(Class targetClass) throws Exception {
+    public final Object ProvideDependency(Class targetClass, Object... args) {
         for (Object single : singles) {
             if (isClassAssignable(targetClass, single.getClass())) {
                 return single;
             }
         }
 
-        for (Map.Entry<Class, Callable<Object>> factory : factories.entrySet()) {
+        for (Map.Entry<Class, Provider<Object>> factory : factories.entrySet()) {
             if (isClassAssignable(targetClass, factory.getKey())) {
-                return (factory.getValue().call());
+                return (factory.getValue().provide(args));
             }
         }
 
@@ -52,5 +52,9 @@ public abstract class DiModule {
 
     <T> T get(Class targetClass) {
         return Di.inject(targetClass);
+    }
+
+    interface Provider<T> {
+        T provide(Object... args);
     }
 }
