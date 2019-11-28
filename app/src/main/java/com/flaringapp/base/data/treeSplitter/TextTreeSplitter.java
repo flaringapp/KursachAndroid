@@ -6,14 +6,18 @@ import java.util.LinkedList;
 
 public interface TextTreeSplitter {
 
-    interface ISplitNode<T>
-    {
-        T getData();
+    interface ISplitNode {
+        String getData();
 
-        LinkedList<ISplitNode<T>> childNodes();
+        LinkedList<ISplitNode> childNodes();
+
+        void appendSymbol(char symbol);
+        void appendSeparatorSymbol(char separatorSymbol);
+        void levelDown();
+        void levelUp();
     }
 
-    ISplitNode<String> split(
+    ISplitNode split(
             String text,
             String startSeparator,
             String endSeparator

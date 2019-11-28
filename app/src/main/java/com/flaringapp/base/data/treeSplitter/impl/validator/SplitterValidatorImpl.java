@@ -1,4 +1,4 @@
-package com.flaringapp.base.data.treeSplitter.impl.validators;
+package com.flaringapp.base.data.treeSplitter.impl.validator;
 
 import android.text.TextUtils;
 

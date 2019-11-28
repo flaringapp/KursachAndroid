@@ -4,28 +4,62 @@ import com.flaringapp.base.data.treeSplitter.TextTreeSplitter.ISplitNode;
 
 import java.util.LinkedList;
 
-public class SplitNode<T> implements ISplitNode<T> {
+public class SplitNode implements ISplitNode {
 
-    private final T data;
-    private final LinkedList<ISplitNode<T>> childNodes;
+    private String data;
 
-    public SplitNode(T data) {
-        this.data = data;
-        this.childNodes = new LinkedList<>();
-    }
+    private final LinkedList<ISplitNode> childNodes;
 
-    public SplitNode(T data, LinkedList<ISplitNode<T>> childNodes) {
-        this.data = data;
-        this.childNodes = childNodes;
+    private int currentLevel = 0;
+
+    public SplitNode() {
+        data = "";
+        childNodes = new LinkedList<>();
     }
 
     @Override
-    public T getData() {
+    public String getData() {
         return data;
     }
 
     @Override
-    public LinkedList<ISplitNode<T>> childNodes() {
+    public LinkedList<ISplitNode> childNodes() {
         return childNodes;
+    }
+
+    @Override
+    public void appendSymbol(char symbol) {
+        data += symbol;
+
+        if (currentLevel > 0) {
+            childNodes.getLast().appendSymbol(symbol);
+        }
+    }
+
+    @Override
+    public void appendSeparatorSymbol(char separatorSymbol) {
+        if (currentLevel > 0) {
+            data += separatorSymbol;
+            childNodes.getLast().appendSeparatorSymbol(separatorSymbol);
+        }
+    }
+
+    @Override
+    public void levelDown() {
+        if (currentLevel == 0) {
+            childNodes.add(new SplitNode());
+        } else if (currentLevel > 0) {
+            childNodes.getLast().levelDown();
+        }
+
+        currentLevel++;
+    }
+
+    @Override
+    public void levelUp() {
+        if (currentLevel > 0) {
+            childNodes.getLast().levelUp();
+            currentLevel--;
+        }
     }
 }

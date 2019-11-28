@@ -12,7 +12,7 @@ public final class PresentationModule extends DiModule {
         );
 
         addFactory(
-                HomePresenter.class, args -> new MainPresenter()
+                HomePresenter.class, args -> new HomePresenter()
         );
     }
 }
