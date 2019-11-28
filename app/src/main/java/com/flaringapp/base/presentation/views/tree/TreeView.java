@@ -60,8 +60,6 @@ public class TreeView extends HorizontalScrollView {
         if (data != null) {
             drawDataOnLevel(data);
         }
-
-        requestLayout();
     }
 
     private void drawDataOnLevel(ISplitNode data) {
@@ -93,5 +91,4 @@ public class TreeView extends HorizontalScrollView {
         return LayoutInflater.from(getContext())
                 .inflate(R.layout.item_treeview_level, parent, false);
     }
-
 }
