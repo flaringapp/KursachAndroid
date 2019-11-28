@@ -18,7 +18,7 @@ public class HomePresenter extends BasePresenter<IHomeView> implements IHomePres
     public void onStart() {
         navigator.navigateTo(
                 Screen.TREE,
-                "a(bc(d(e(а(а(а(а(а(а(а(а))))))))))fg(h)ij)k(l(m)n(o(p)r)s)(tu)",
+                "a(bc(d(e(а(а(а(а(а(а(а(а(a(a(a(a))))))))))))))fg(h)ij)k(l(m)n(o(p)r)s)(tu)",
                 "(",
                 ")"
         );
