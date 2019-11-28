@@ -53,5 +53,7 @@ public interface IBaseView {
         }
     }
 
-
+    default void handleError(Exception e) {
+        //TODO
+    }
 }

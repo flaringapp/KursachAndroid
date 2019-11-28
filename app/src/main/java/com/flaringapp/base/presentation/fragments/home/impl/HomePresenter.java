@@ -1,9 +1,10 @@
 package com.flaringapp.base.presentation.fragments.home.impl;
 
 import com.flaringapp.base.presentation.activities.main.navigation.Navigator;
+import com.flaringapp.base.presentation.activities.main.navigation.Screen;
+import com.flaringapp.base.presentation.fragments.home.IHomePresenter;
 import com.flaringapp.base.presentation.fragments.home.IHomeView;
 import com.flaringapp.base.presentation.mvp.BasePresenter;
-import com.flaringapp.base.presentation.fragments.home.IHomePresenter;
 
 public class HomePresenter extends BasePresenter<IHomeView> implements IHomePresenter {
 
@@ -11,5 +12,15 @@ public class HomePresenter extends BasePresenter<IHomeView> implements IHomePres
 
     public HomePresenter(Navigator navigator) {
         this.navigator = navigator;
+    }
+
+    @Override
+    public void onStart() {
+        navigator.navigateTo(
+                Screen.TREE,
+                "a(bc(d(e))fg(h)ij)k(l(m)n(o(p)r)s)(tu)",
+                "(",
+                ")"
+        );
     }
 }

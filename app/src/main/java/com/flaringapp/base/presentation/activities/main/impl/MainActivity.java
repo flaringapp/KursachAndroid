@@ -12,6 +12,7 @@ import com.flaringapp.base.presentation.activities.main.IMainPresenter;
 import com.flaringapp.base.presentation.activities.main.IMainView;
 import com.flaringapp.base.presentation.activities.main.navigation.Screen;
 import com.flaringapp.base.presentation.fragments.home.impl.HomeFragment;
+import com.flaringapp.base.presentation.fragments.tree.impl.TreeFragment;
 import com.flaringapp.base.presentation.mvp.BaseActivity;
 
 public class MainActivity extends BaseActivity<IMainPresenter> implements IMainView {
@@ -44,6 +45,13 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
         switch (screen) {
             case HOME:
                 fragment = HomeFragment.newInstance();
+                break;
+            case TREE:
+                fragment = TreeFragment.newInstance(
+                        (String) data[0],
+                        (String) data[1],
+                        (String) data[2]
+                );
                 break;
         }
 
