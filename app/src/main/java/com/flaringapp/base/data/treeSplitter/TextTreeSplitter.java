@@ -2,14 +2,14 @@ package com.flaringapp.base.data.treeSplitter;
 
 import com.flaringapp.base.data.treeSplitter.exceptions.SplitterException;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public interface TextTreeSplitter {
 
     interface ISplitNode {
         String getData();
 
-        LinkedList<ISplitNode> childNodes();
+        List<ISplitNode> childNodes();
 
         void appendSymbol(char symbol);
         void appendSeparatorSymbol(char separatorSymbol);

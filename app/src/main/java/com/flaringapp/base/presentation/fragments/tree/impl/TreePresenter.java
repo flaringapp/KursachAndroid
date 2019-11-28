@@ -34,7 +34,9 @@ public class TreePresenter extends BasePresenter<ITreeView> implements ITreePres
                     separatorEnd
             );
 
-            result.getData();
+            if (view != null) {
+                view.onTreeReady(result);
+            }
         } catch (Exception e) {
             if (view != null) {
                 view.handleError(e);

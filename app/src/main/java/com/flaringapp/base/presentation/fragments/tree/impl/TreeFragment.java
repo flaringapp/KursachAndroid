@@ -3,12 +3,15 @@ package com.flaringapp.base.presentation.fragments.tree.impl;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.flaringapp.base.R;
 import com.flaringapp.base.app.di.Di;
+import com.flaringapp.base.data.treeSplitter.TextTreeSplitter.ISplitNode;
 import com.flaringapp.base.presentation.fragments.tree.ITreePresenter;
 import com.flaringapp.base.presentation.mvp.BaseFragment;
 import com.flaringapp.base.presentation.fragments.tree.ITreeView;
+import com.flaringapp.base.presentation.views.tree.TreeView;
 
 public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeView {
 
@@ -33,6 +36,9 @@ public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeV
         return treeFragment;
     }
 
+    @Nullable
+    private TreeView treeView;
+
     @NonNull
     @Override
     protected ITreePresenter providePresenter() {
@@ -52,5 +58,22 @@ public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeV
     @Override
     protected int provideLayoutRes() {
         return R.layout.fragment_tree;
+    }
+
+    @Override
+    protected void init() {
+        treeView = requireView().findViewById(R.id.treeView);
+    }
+
+    @Override
+    protected void release() {
+        treeView = null;
+    }
+
+    @Override
+    public void onTreeReady(ISplitNode data) {
+        if (treeView != null) {
+            treeView.setData(data);
+        }
     }
 }

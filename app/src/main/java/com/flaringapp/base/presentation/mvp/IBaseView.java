@@ -2,6 +2,7 @@ package com.flaringapp.base.presentation.mvp;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
@@ -53,7 +54,7 @@ public interface IBaseView {
         }
     }
 
-    default void handleError(Exception e) {
-        //TODO
+    default void handleError(@NonNull Exception e) {
+        showErrorToast(e.getMessage());
     }
 }

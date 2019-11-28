@@ -20,7 +20,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment
     @NonNull
     protected abstract T providePresenter();
 
-    protected  void onInitPresenter() {
+    protected void onInitPresenter() {
         presenter.initView(this);
     }
 
@@ -69,6 +69,9 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment
     }
 
     protected void init() {
+    }
+
+    protected void release() {
     }
 
     @Override

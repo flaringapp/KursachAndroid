@@ -2,19 +2,20 @@ package com.flaringapp.base.data.treeSplitter.models;
 
 import com.flaringapp.base.data.treeSplitter.TextTreeSplitter.ISplitNode;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SplitNode implements ISplitNode {
 
     private String data;
 
-    private final LinkedList<ISplitNode> childNodes;
+    private final List<ISplitNode> childNodes;
 
     private int currentLevel = 0;
 
     public SplitNode() {
         data = "";
-        childNodes = new LinkedList<>();
+        childNodes = new ArrayList<>();
     }
 
     @Override
@@ -23,7 +24,7 @@ public class SplitNode implements ISplitNode {
     }
 
     @Override
-    public LinkedList<ISplitNode> childNodes() {
+    public List<ISplitNode> childNodes() {
         return childNodes;
     }
 
@@ -32,7 +33,7 @@ public class SplitNode implements ISplitNode {
         data += symbol;
 
         if (currentLevel > 0) {
-            childNodes.getLast().appendSymbol(symbol);
+            childNodes.get(childNodes.size() - 1).appendSymbol(symbol);
         }
     }
 
@@ -40,7 +41,7 @@ public class SplitNode implements ISplitNode {
     public void appendSeparatorSymbol(char separatorSymbol) {
         if (currentLevel > 0) {
             data += separatorSymbol;
-            childNodes.getLast().appendSeparatorSymbol(separatorSymbol);
+            childNodes.get(childNodes.size() - 1).appendSeparatorSymbol(separatorSymbol);
         }
     }
 
@@ -49,7 +50,7 @@ public class SplitNode implements ISplitNode {
         if (currentLevel == 0) {
             childNodes.add(new SplitNode());
         } else if (currentLevel > 0) {
-            childNodes.getLast().levelDown();
+            childNodes.get(childNodes.size() - 1).levelDown();
         }
 
         currentLevel++;
@@ -58,7 +59,7 @@ public class SplitNode implements ISplitNode {
     @Override
     public void levelUp() {
         if (currentLevel > 0) {
-            childNodes.getLast().levelUp();
+            childNodes.get(childNodes.size() - 1).levelUp();
             currentLevel--;
         }
     }
