@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         tools:ignore="AllowBackup">
-        <activity android:name=".presentation.activities.impl.MainActivity">
+        <activity android:name=".presentation.activities.main.impl.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

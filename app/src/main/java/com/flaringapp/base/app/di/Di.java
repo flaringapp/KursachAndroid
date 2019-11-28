@@ -1,5 +1,7 @@
 package com.flaringapp.base.app.di;
 
+import androidx.annotation.NonNull;
+
 import com.flaringapp.base.app.di.exceptions.MissingDependencyException;
 import com.flaringapp.base.app.di.modules.DataModule;
 import com.flaringapp.base.app.di.modules.DiModule;
@@ -21,16 +23,12 @@ public final class Di {
         }
     }
 
+    @NonNull
     public static <T> T inject(Class targetClass, Object... args) {
-        try {
-            for (DiModule module : modules) {
-                Object dependency = module.ProvideDependency(targetClass, args);
-                if (dependency != null) return (T) dependency;
-            }
-            throw new MissingDependencyException(targetClass.getName());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        for (DiModule module : modules) {
+            Object dependency = module.ProvideDependency(targetClass, args);
+            if (dependency != null) return (T) dependency;
         }
+        throw new MissingDependencyException(targetClass.getName());
     }
 }

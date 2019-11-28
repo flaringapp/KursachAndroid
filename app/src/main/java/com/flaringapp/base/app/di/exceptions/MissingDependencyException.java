@@ -2,7 +2,7 @@ package com.flaringapp.base.app.di.exceptions;
 
 import androidx.annotation.Nullable;
 
-public class MissingDependencyException extends Exception {
+public class MissingDependencyException extends RuntimeException {
 
     private final String className;
 
