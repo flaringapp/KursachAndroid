@@ -5,25 +5,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/appBackground">
 
-    <HorizontalScrollView
+    <TextView
+        style="@style/Text.Title"
+        android:id="@+id/textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tree_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.flaringapp.base.presentation.views.scrollingLayout.ScrollingLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTitle"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <ScrollView
+        <com.flaringapp.base.presentation.views.tree.TreeView
+            android:id="@+id/treeView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content" />
 
-            <com.flaringapp.base.presentation.views.tree.TreeView
-                android:id="@+id/treeView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </ScrollView>
-
-    </HorizontalScrollView>
+    </com.flaringapp.base.presentation.views.scrollingLayout.ScrollingLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

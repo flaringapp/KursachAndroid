@@ -11,4 +11,5 @@
     <string name="text">Text</string>
     <string name="treenize">Treenize!</string>
     <string name="error_separators_same">Separators can\'t be same!</string>
+    <string name="tree_view">Tree view</string>
 </resources>
