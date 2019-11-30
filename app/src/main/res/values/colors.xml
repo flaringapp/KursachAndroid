@@ -11,4 +11,8 @@
     <color name="buttonTextColor">#ffffff</color>
 
     <color name="buttonColor">@color/colorPrimary</color>
+    <color name="textErrorColor">#E91E1E</color>
+    <color name="textHintColor">#ccc</color>
+    <color name="textPrimaryColor">@color/colorPrimary</color>
+    <color name="transparent">#00000000</color>
 </resources>

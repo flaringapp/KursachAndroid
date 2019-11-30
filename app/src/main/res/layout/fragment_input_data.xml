@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appBackground">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="64dp"
+        android:clipToPadding="false">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/Text.Title"
+                android:id="@+id/textTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/data_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/Text"
+                android:id="@+id/textMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:text="@string/data_input_message"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textTitle" />
+
+            <TextView
+                style="@style/Text.Subtitle"
+                android:id="@+id/textSeparators"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/separators"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textMessage" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutStartSeparatorInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/textErrorColor"
+                android:hint="@string/start_separator"
+                app:layout_constraintTop_toBottomOf="@id/textSeparators"
+                app:layout_constraintEnd_toStartOf="@id/layoutEndSeparatorInput"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Text"
+                    android:id="@+id/inputStartSeparator"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:textSize="18sp"
+                    android:maxLines="1"
+                    android:inputType="textNoSuggestions"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@id/inputEndSeparator" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutEndSeparatorInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="32dp"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/textErrorColor"
+                android:hint="@string/end_separator"
+                app:layout_constraintTop_toBottomOf="@id/textSeparators"
+                app:layout_constraintStart_toEndOf="@id/layoutStartSeparatorInput"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Text"
+                    android:id="@+id/inputEndSeparator"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:textSize="18sp"
+                    android:maxLines="1"
+                    android:inputType="textNoSuggestions"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@id/inputText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/separatorsBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="layoutStartSeparatorInput,layoutEndSeparatorInput" />
+
+            <TextView
+                style="@style/Text.Subtitle"
+                android:id="@+id/textText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separatorsBottom" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutTextInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/textErrorColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textText">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_input_box"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:gravity="top"
+                    android:minLines="4" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <Button
+        style="@style/Button.Action.Small"
+        android:id="@+id/buttonContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/treenize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
