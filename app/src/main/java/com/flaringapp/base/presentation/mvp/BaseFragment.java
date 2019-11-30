@@ -68,10 +68,20 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment
         presenter.onStart();
     }
 
+    @CallSuper
     protected void init() {
+        initViews(getView());
     }
 
+    protected void initViews(View view) {
+    }
+
+    @CallSuper
     protected void release() {
+        releaseViews();
+    }
+
+    protected void releaseViews() {
     }
 
     @Override

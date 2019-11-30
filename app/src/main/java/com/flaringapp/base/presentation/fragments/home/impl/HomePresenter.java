@@ -15,7 +15,7 @@ public class HomePresenter extends BasePresenter<IHomeView> implements IHomePres
     }
 
     @Override
-    public void onStart() {
+    public void onNextClicked() {
         navigator.navigateTo(
                 Screen.TREE,
                 "a(bc(d(e(а(а(а(а(а(а(а(а(a(a(a(a))))))))))))))fg(h)ij)k(l(m)n(o(p)r)s)(tu)",
