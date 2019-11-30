@@ -62,6 +62,12 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
+                .setCustomAnimations(
+                        R.anim.screen_enter_anim,
+                        R.anim.screen_exit_anim,
+                        R.anim.screen_enter_pop_anim,
+                        R.anim.screen_exit_pop_anim
+                )
                 .add(R.id.fragmentContainer, fragment)
                 .commit();
     }
