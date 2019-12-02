@@ -1,6 +1,7 @@
 package com.flaringapp.base.presentation.fragments.tree.impl;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,14 +62,12 @@ public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeV
     }
 
     @Override
-    protected void init() {
-        super.init();
-        treeView = requireView().findViewById(R.id.treeView);
+    protected void initViews(View view) {
+        treeView = view.findViewById(R.id.treeView);
     }
 
     @Override
-    protected void release() {
-        super.release();
+    protected void releaseViews() {
         treeView = null;
     }
 
