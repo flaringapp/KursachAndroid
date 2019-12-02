@@ -62,11 +62,13 @@ public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeV
 
     @Override
     protected void init() {
+        super.init();
         treeView = requireView().findViewById(R.id.treeView);
     }
 
     @Override
     protected void release() {
+        super.release();
         treeView = null;
     }
 
