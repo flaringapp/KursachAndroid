@@ -39,11 +39,10 @@ public class SplitNode implements ISplitNode {
 
     @Override
     public void appendSeparatorSymbol(char separatorSymbol) {
-        if (currentLevel >= 0) {
-            data += separatorSymbol;
-            if (currentLevel > 0) {
-                childNodes.get(childNodes.size() - 1).appendSeparatorSymbol(separatorSymbol);
-            }
+        data += separatorSymbol;
+
+        if (currentLevel > 0) {
+            childNodes.get(childNodes.size() - 1).appendSeparatorSymbol(separatorSymbol);
         }
     }
 
@@ -62,7 +61,8 @@ public class SplitNode implements ISplitNode {
     public void levelUp() {
         if (currentLevel > 0) {
             childNodes.get(childNodes.size() - 1).levelUp();
-            currentLevel--;
         }
+
+        currentLevel--;
     }
 }
