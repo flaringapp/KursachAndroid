@@ -7,6 +7,9 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import java.util.List;
 
 public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatActivity
         implements IBaseActivity {
@@ -31,6 +34,19 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         super.onCreate(savedInstanceState);
         presenter = providePresenter();
         presenter.onCreate();
+    }
+
+    @Override
+    public void onBackPressed() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof BackClickListener) {
+                if (((BackClickListener) fragment).onBackClicked()) return;
+            }
+        }
+
+        super.onBackPressed();
     }
 
     @Override

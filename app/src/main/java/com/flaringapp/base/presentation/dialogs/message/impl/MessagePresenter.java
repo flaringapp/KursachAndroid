@@ -54,6 +54,7 @@ public class MessagePresenter extends BasePresenter<MessageContract.ViewContract
 
     @Override
     public void onActionButtonClick() {
+        onClose();
         view.close();
     }
 

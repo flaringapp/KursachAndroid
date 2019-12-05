@@ -16,10 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import java.security.MessageDigest;
+import java.util.List;
 
 public abstract class BaseDialog<T extends IBasePresenter> extends DialogFragment
-        implements IBaseDialog {
+        implements IBaseDialog, BackClickListener {
 
     protected T presenter;
 
@@ -97,6 +97,18 @@ public abstract class BaseDialog<T extends IBasePresenter> extends DialogFragmen
                 window.setAttributes(attributes);
             }
         }
+    }
+
+    @Override
+    public boolean onBackClicked() {
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof BackClickListener) {
+                if (((BackClickListener) fragment).onBackClicked()) return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

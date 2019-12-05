@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.List;
+
 public abstract class BaseFragment<T extends IBasePresenter> extends Fragment
-        implements IBaseFragment {
+        implements IBaseFragment, BackClickListener {
 
     protected T presenter;
 
@@ -74,6 +76,18 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment
     }
 
     protected void initViews(View view) {
+    }
+
+    @Override
+    public boolean onBackClicked() {
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof BackClickListener) {
+                if (((BackClickListener) fragment).onBackClicked()) return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

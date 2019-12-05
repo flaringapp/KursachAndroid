@@ -122,6 +122,17 @@ public class MessageDialog extends BaseDialog<MessageContract.PresenterContract>
     }
 
     @Override
+    public boolean onBackClicked() {
+        boolean handled = super.onBackClicked();
+        if (!handled) {
+            dismiss();
+            return true;
+        }
+
+        return true;
+    }
+
+    @Override
     protected void releaseViews() {
         textHeader = null;
         textMessage = null;
@@ -163,12 +174,6 @@ public class MessageDialog extends BaseDialog<MessageContract.PresenterContract>
     @Override
     public void setActionButtonText(String actionButtonText) {
         if (textButtonAction != null) textButtonAction.setText(actionButtonText);
-    }
-
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        presenter.onClose();
-        super.onDismiss(dialog);
     }
 
     @Override
