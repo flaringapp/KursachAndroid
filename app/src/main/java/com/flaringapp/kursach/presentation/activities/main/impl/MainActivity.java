@@ -16,7 +16,7 @@ import com.flaringapp.kursach.presentation.fragments.inputData.impl.InputDataFra
 import com.flaringapp.kursach.presentation.fragments.tree.impl.TreeFragment;
 import com.flaringapp.kursach.presentation.mvp.BaseActivity;
 
-public class MainActivity extends BaseActivity<IMainPresenter> implements IMainView {
+public class  MainActivity extends BaseActivity<IMainPresenter> implements IMainView {
 
     @NonNull
     @Override

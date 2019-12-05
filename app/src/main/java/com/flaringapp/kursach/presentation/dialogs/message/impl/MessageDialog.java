@@ -12,12 +12,13 @@ import androidx.annotation.Nullable;
 
 import com.flaringapp.kursach.R;
 import com.flaringapp.kursach.app.di.Di;
-import com.flaringapp.kursach.presentation.dialogs.message.MessageContract;
-import com.flaringapp.kursach.presentation.dialogs.message.MessageContract.MessageDialogParent;
+import com.flaringapp.kursach.presentation.dialogs.message.IMessagePresenter;
+import com.flaringapp.kursach.presentation.dialogs.message.IMessageView;
+import com.flaringapp.kursach.presentation.dialogs.message.MessageDialogParent;
 import com.flaringapp.kursach.presentation.mvp.BaseDialog;
 
-public class MessageDialog extends BaseDialog<MessageContract.PresenterContract>
-        implements MessageContract.ViewContract {
+public class MessageDialog extends BaseDialog<IMessagePresenter>
+        implements IMessageView {
 
     private static final String HEADER_KEY = "key_header";
     private static final String MESSAGE_KEY = "key_message";
@@ -73,8 +74,8 @@ public class MessageDialog extends BaseDialog<MessageContract.PresenterContract>
 
     @NonNull
     @Override
-    protected MessageContract.PresenterContract providePresenter() {
-        return Di.inject(MessageContract.PresenterContract.class);
+    protected IMessagePresenter providePresenter() {
+        return Di.inject(IMessagePresenter.class);
     }
 
     @Override
@@ -149,14 +150,6 @@ public class MessageDialog extends BaseDialog<MessageContract.PresenterContract>
     }
 
     @Override
-    public void setIconVisible(boolean visible) {
-        if (imageIcon != null) {
-            if (visible) imageIcon.setVisibility(View.VISIBLE);
-            else imageIcon.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
     public void setHeader(String header) {
         if (textHeader != null) textHeader.setText(header);
     }
@@ -168,7 +161,14 @@ public class MessageDialog extends BaseDialog<MessageContract.PresenterContract>
 
     @Override
     public void setIcon(int iconRes) {
-        if (imageIcon != null && iconRes != NO_ICON) imageIcon.setImageResource(iconRes);
+        if (imageIcon != null) {
+            if (iconRes != NO_ICON)  {
+                imageIcon.setImageResource(iconRes);
+                imageIcon.setVisibility(View.VISIBLE);
+            } else {
+                imageIcon.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override

@@ -14,7 +14,7 @@ import com.flaringapp.kursach.data.treeSplitter.exceptions.EmptyTextException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.InvalidSeparatorsCountException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.InvalidSeparatorsOrderException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.SameSeparatorsException;
-import com.flaringapp.kursach.presentation.dialogs.message.MessageContract;
+import com.flaringapp.kursach.presentation.dialogs.message.MessageDialogParent;
 import com.flaringapp.kursach.presentation.dialogs.message.impl.MessageDialog;
 import com.flaringapp.kursach.presentation.fragments.tree.ITreePresenter;
 import com.flaringapp.kursach.presentation.mvp.BaseFragment;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeView,
-        MessageContract.MessageDialogParent {
+        MessageDialogParent {
 
     private static final String TEXT_KEY = "key_text";
     private static final String SEPARATOR_START_KEY = "key_separator_start";
