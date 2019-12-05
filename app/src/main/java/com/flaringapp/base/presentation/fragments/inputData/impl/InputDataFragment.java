@@ -86,23 +86,23 @@ public class InputDataFragment extends BaseFragment<IInputDataPresenter>
     }
 
     @Override
-    public void setInputTextError(int errorRes) {
+    public void setInputTextError(int errorRes, Object... params) {
         if (layoutInputText != null) {
-            layoutInputText.setError(getString(errorRes));
+            layoutInputText.setError(getString(errorRes, params));
         }
     }
 
     @Override
-    public void setInputStartSeparatorError(int errorRes) {
+    public void setInputStartSeparatorError(int errorRes, Object... params) {
         if (layoutInputStartSeparator != null) {
-            layoutInputStartSeparator.setError(getString(errorRes));
+            layoutInputStartSeparator.setError(getString(errorRes, params));
         }
     }
 
     @Override
-    public void setInputEndSeparatorError(int errorRes) {
+    public void setInputEndSeparatorError(int errorRes, Object... params) {
         if (layoutInputEndSeparator != null) {
-            layoutInputEndSeparator.setError(getString(errorRes));
+            layoutInputEndSeparator.setError(getString(errorRes, params));
         }
     }
 

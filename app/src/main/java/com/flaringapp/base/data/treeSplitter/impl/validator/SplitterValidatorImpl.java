@@ -6,6 +6,7 @@ import com.flaringapp.base.data.treeSplitter.exceptions.EmptySeparatorException;
 import com.flaringapp.base.data.treeSplitter.exceptions.EmptyTextException;
 import com.flaringapp.base.data.treeSplitter.exceptions.InvalidSeparatorsCountException;
 import com.flaringapp.base.data.treeSplitter.exceptions.InvalidSeparatorsOrderException;
+import com.flaringapp.base.data.treeSplitter.exceptions.SameSeparatorsException;
 import com.flaringapp.base.data.treeSplitter.exceptions.SplitterException;
 import com.flaringapp.base.data.treeSplitter.utils.SplitterUtils;
 
@@ -22,6 +23,8 @@ public class SplitterValidatorImpl implements SplitterValidator {
         validateSeparator(startSeparator);
         validateSeparator(endSeparator);
 
+        validateSameSeparators(startSeparator, endSeparator);
+
         validateSeparatorsCountInText(text, startSeparator, endSeparator);
 
         validateSeparatorsOrderInText(text, startSeparator, endSeparator);
@@ -33,6 +36,12 @@ public class SplitterValidatorImpl implements SplitterValidator {
 
     private void validateSeparator(String separator) throws EmptySeparatorException {
         if (TextUtils.isEmpty(separator)) throw new EmptySeparatorException();
+    }
+
+    private void validateSameSeparators(String startSeparator, String endSeparator) throws SameSeparatorsException {
+        if (startSeparator.equals(endSeparator)) {
+            throw new SameSeparatorsException(startSeparator);
+        }
     }
 
     private void validateSeparatorsCountInText(

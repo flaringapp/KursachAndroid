@@ -82,7 +82,7 @@ public class InputDataPresenter extends BasePresenter<IInputDataView>
         }
 
         if (startSeparator.equals(endSeparator)) {
-            view.setInputStartSeparatorError(R.string.error_separators_same);
+            view.setInputStartSeparatorError(R.string.error_separators_same, startSeparator);
             view.setInputEndSeparatorError(R.string.error_separators_same);
             valid = false;
         }

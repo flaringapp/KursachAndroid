@@ -6,9 +6,9 @@ import com.flaringapp.base.presentation.mvp.IBaseFragment;
 
 public interface IInputDataView extends IBaseFragment {
 
-    void setInputTextError(@StringRes int errorRes);
-    void setInputStartSeparatorError(@StringRes int errorRes);
-    void setInputEndSeparatorError(@StringRes int errorRes);
+    void setInputTextError(@StringRes int errorRes, Object... params);
+    void setInputStartSeparatorError(@StringRes int errorRes, Object... params);
+    void setInputEndSeparatorError(@StringRes int errorRes, Object... params);
 
     void onAllDataEntered();
     void onNotAllDataEntered();

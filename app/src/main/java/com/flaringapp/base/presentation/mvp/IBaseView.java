@@ -54,7 +54,7 @@ public interface IBaseView {
         }
     }
 
-    default void handleError(@NonNull Exception e) {
-        showErrorToast(e.getMessage());
+    default void handleError(@NonNull Exception exception) {
+        showErrorToast(exception.getMessage());
     }
 }

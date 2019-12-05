@@ -1,16 +1,22 @@
 package com.flaringapp.base.presentation.mvp;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+
+import java.security.MessageDigest;
 
 public abstract class BaseDialog<T extends IBasePresenter> extends DialogFragment
         implements IBaseDialog {
@@ -20,7 +26,6 @@ public abstract class BaseDialog<T extends IBasePresenter> extends DialogFragmen
     @NonNull
     protected abstract T providePresenter();
 
-    @CallSuper
     protected void onInitPresenter() {
         presenter.initView(this);
     }
@@ -69,12 +74,53 @@ public abstract class BaseDialog<T extends IBasePresenter> extends DialogFragmen
         presenter.onStart();
     }
 
+    @CallSuper
     protected void init() {
+        initViews(getView());
+    }
+
+    protected void initViews(View view) {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams attributes = window.getAttributes();
+                attributes.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                attributes.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+                window.setAttributes(attributes);
+            }
+        }
     }
 
     @Override
     public void onDestroyView() {
         presenter.onDestroy();
+        release();
         super.onDestroyView();
+    }
+
+    @CallSuper
+    protected void release() {
+        releaseViews();
+    }
+
+    protected void releaseViews() {
+    }
+
+    @Override
+    public String getDialogTag() {
+        return getTag();
+    }
+
+    @Override
+    public void close() {
+        dismiss();
     }
 }

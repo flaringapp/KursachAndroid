@@ -43,4 +43,9 @@ public class TreePresenter extends BasePresenter<ITreeView> implements ITreePres
             }
         }
     }
+
+    @Override
+    public void onSplitterErrorClosed() {
+        view.close();
+    }
 }

@@ -76,6 +76,13 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment
     protected void initViews(View view) {
     }
 
+    @Override
+    public void onDestroyView() {
+        presenter.onDestroy();
+        release();
+        super.onDestroyView();
+    }
+
     @CallSuper
     protected void release() {
         releaseViews();
@@ -85,8 +92,9 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment
     }
 
     @Override
-    public void onDestroyView() {
-        presenter.onDestroy();
-        super.onDestroyView();
+    public void close() {
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
     }
 }
