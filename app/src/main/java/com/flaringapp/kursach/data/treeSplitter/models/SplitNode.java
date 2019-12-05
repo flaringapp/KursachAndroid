@@ -28,39 +28,39 @@ public class SplitNode implements ISplitNode {
         return childNodes;
     }
 
-    @Override
+    private SplitNode getChildAt(int index) {
+        return (SplitNode) childNodes.get(index);
+    }
+
     public void appendSymbol(char symbol) {
         data += symbol;
 
         if (currentLevel > 0) {
-            childNodes.get(childNodes.size() - 1).appendSymbol(symbol);
+            getChildAt(childNodes.size() - 1).appendSymbol(symbol);
         }
     }
 
-    @Override
     public void appendSeparatorSymbol(char separatorSymbol) {
         data += separatorSymbol;
 
         if (currentLevel > 0) {
-            childNodes.get(childNodes.size() - 1).appendSeparatorSymbol(separatorSymbol);
+            getChildAt(childNodes.size() - 1).appendSeparatorSymbol(separatorSymbol);
         }
     }
 
-    @Override
     public void levelDown() {
         if (currentLevel == 0) {
             childNodes.add(new SplitNode());
         } else if (currentLevel > 0) {
-            childNodes.get(childNodes.size() - 1).levelDown();
+            getChildAt(childNodes.size() - 1).levelDown();
         }
 
         currentLevel++;
     }
 
-    @Override
     public void levelUp() {
         if (currentLevel > 0) {
-            childNodes.get(childNodes.size() - 1).levelUp();
+            getChildAt(childNodes.size() - 1).levelUp();
         }
 
         currentLevel--;
