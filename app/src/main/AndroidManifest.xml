@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.flaringapp.base">
+    package="com.flaringapp.kursach">
 
     <application
-        android:name=".app.SplitterApp"
+        android:name="com.flaringapp.kursach.app.SplitterApp"
         android:theme="@style/AppTheme"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         tools:ignore="AllowBackup">
-        <activity android:name=".presentation.activities.main.impl.MainActivity">
+        <activity android:name="com.flaringapp.kursach.presentation.activities.main.impl.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
