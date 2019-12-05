@@ -108,6 +108,8 @@ public class TreeView extends ConstraintLayout {
 
         List<TreeViewSplitNode> splitViewNodes = new ArrayList<>();
 
+        if (data.isEmpty()) return splitViewNodes;
+
         for (ISplitNode node : data) {
             TextView dataView = inflateDataView();
             dataView.setText(node.getData());
