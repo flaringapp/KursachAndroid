@@ -79,9 +79,7 @@ public class MessageDialog extends BaseDialog<IMessagePresenter>
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    protected void onInitPresenter() {
         Bundle arguments = getArguments();
         if (arguments == null) return;
 
