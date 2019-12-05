@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Розділювач стрічок</string>
+    <string name="data_input">Ввід даних</string>
+    <string name="data_input_message">Вам слід ввести текст, який ви хочете розділити на дерево, та розділювачі, по яких розділяти даний текст</string>
+    <string name="end_separator">Кінцевий розділювач</string>
+    <string name="error">Помилка</string>
+    <string name="error_separator_input_empty">Розділювач має містити щонайменше 1 символ!</string>
+    <string name="error_separators_same">Розділювачі не можуть бути однаковими! (%1$s)</string>
+    <string name="error_separators_wrong_count">Кількість початкових розділювачів (%1$d) не дорівнює кількості кінцевих розділювачів (%2$d)!</string>
+    <string name="error_separators_wrong_order">Порядок розділювачів у тексті неправильний! Кінцевй розділювач на початковому рівні знаходиться перед початковим</string>
+    <string name="error_text_input_empty">Текст не може бути пустим!</string>
+    <string name="ok">ОК</string>
+    <string name="separators">Розділювачі</string>
+    <string name="start">Почати!</string>
+    <string name="start_separator">Початковий розділювач</string>
+    <string name="text">Текст</string>
+    <string name="tree_view">Перегляд дерева</string>
+    <string name="treenize">Деревізувати</string>
+</resources>
