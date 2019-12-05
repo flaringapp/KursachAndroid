@@ -12,19 +12,6 @@ import androidx.annotation.NonNull;
 
 public final class ViewUtils {
 
-    public static void setClipHierarchy(View view, boolean clip) {
-        if (view instanceof ViewGroup) {
-            ((ViewGroup) view).setClipChildren(clip);
-            ((ViewGroup) view).setClipToPadding(clip);
-        }
-        while (view.getParent() != null && view.getParent() instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view.getParent();
-            viewGroup.setClipChildren(clip);
-            viewGroup.setClipToPadding(clip);
-            view = viewGroup;
-        }
-    }
-
     public static float dp(Context context, float dp) {
         return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
