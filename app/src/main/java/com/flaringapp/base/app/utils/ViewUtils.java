@@ -1,7 +1,9 @@
 package com.flaringapp.base.app.utils;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -21,6 +23,14 @@ public final class ViewUtils {
             viewGroup.setClipToPadding(clip);
             view = viewGroup;
         }
+    }
+
+    public static float dp(Context context, float dp) {
+        return TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                context.getResources().getDisplayMetrics()
+        );
     }
 
     public interface TextChangeListener {

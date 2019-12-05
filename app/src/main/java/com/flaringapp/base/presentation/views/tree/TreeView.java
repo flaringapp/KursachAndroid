@@ -1,5 +1,10 @@
-package com.flaringapp.base.presentation.fragments.tree.impl;
+package com.flaringapp.base.presentation.views.tree;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -8,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.flaringapp.base.R;
+import com.flaringapp.base.app.utils.ViewUtils;
 import com.flaringapp.base.data.treeSplitter.TextTreeSplitter.ISplitNode;
 
 import java.util.ArrayList;
@@ -15,58 +21,102 @@ import java.util.List;
 
 import static androidx.constraintlayout.widget.ConstraintSet.PARENT_ID;
 
-class TreeDrawMediator {
+public class TreeView extends ConstraintLayout {
 
-    private ConstraintLayout container;
+    private static final float LINE_MARGIN = 8f;
+    private static final float LINE_WIDTH = 4f;
 
-    private ISplitNode data;
+    private ISplitNode data = null;
 
-    TreeDrawMediator(ConstraintLayout container) {
-        this.container = container;
+    private TreeViewSplitNode viewData = null;
+
+    private Paint linePaint;
+
+    private float lineMargin;
+
+    public TreeView(Context context) {
+        super(context);
+        initSelf();
     }
 
-    void setData(ISplitNode node) {
+    public TreeView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initSelf();
+    }
+
+    public TreeView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initSelf();
+    }
+
+    private void initSelf() {
+        setWillNotDraw(false);
+
+        linePaint = new Paint();
+        linePaint.setStyle(Paint.Style.STROKE);
+        linePaint.setColor(Color.BLACK);
+        linePaint.setStrokeWidth(ViewUtils.dp(getContext(), LINE_WIDTH));
+        linePaint.setDither(true);
+        linePaint.setAntiAlias(true);
+        linePaint.setStrokeJoin(Paint.Join.ROUND);
+        linePaint.setStrokeCap(Paint.Cap.ROUND);
+
+        lineMargin = ViewUtils.dp(getContext(), LINE_MARGIN);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if (viewData != null) {
+            drawDataLines(canvas, viewData);
+        }
+    }
+
+    public void setData(ISplitNode node) {
         this.data = node;
         invalidateData();
     }
 
     private void invalidateData() {
-        container.removeAllViewsInLayout();
+        removeAllViewsInLayout();
 
         if (data != null) {
             drawData(data);
         }
+
+        post(this::invalidate);
     }
 
     private void drawData(ISplitNode data) {
         TextView dataView = inflateDataView();
         dataView.setText(data.getData());
-        container.addView(dataView);
+        this.addView(dataView);
 
         ConstraintSet set = new ConstraintSet();
-        set.clone(container);
+        set.clone(this);
 
         set.connect(dataView.getId(), ConstraintSet.TOP, PARENT_ID, ConstraintSet.TOP);
         set.connect(dataView.getId(), ConstraintSet.START, PARENT_ID, ConstraintSet.START);
         set.connect(dataView.getId(), ConstraintSet.END, PARENT_ID, ConstraintSet.END);
 
-        set.applyTo(container);
+        set.applyTo(this);
 
-        drawData(dataView, data.childNodes());
+        viewData = new TreeViewSplitNode(dataView, drawData(dataView, data.childNodes()));
     }
 
-    private void drawData(View topView, List<ISplitNode> data) {
+    private List<TreeViewSplitNode> drawData(View topView, List<ISplitNode> data) {
         List<TextView> dataViews = new ArrayList<>();
+
+        List<TreeViewSplitNode> splitViewNodes = new ArrayList<>();
 
         for (ISplitNode node : data) {
             TextView dataView = inflateDataView();
             dataView.setText(node.getData());
-            container.addView(dataView);
+            this.addView(dataView);
             dataViews.add(dataView);
         }
 
         ConstraintSet set = new ConstraintSet();
-        set.clone(container);
+        set.clone(this);
 
         if (dataViews.size() == 1) {
             TextView dataView = dataViews.get(0);
@@ -97,22 +147,45 @@ class TreeDrawMediator {
             set.connect(lastDataView.getId(), ConstraintSet.END, topView.getId(), ConstraintSet.END);
         }
 
-        set.applyTo(container);
+        set.applyTo(this);
 
         for (int i = 0; i < dataViews.size(); i++) {
             List<ISplitNode> childNodes = data.get(i).childNodes();
 
+            List<TreeViewSplitNode> childViewNodes = new ArrayList<>();
+
             if (childNodes.size() > 0) {
-                drawData(dataViews.get(i), childNodes);
+                childViewNodes.addAll(drawData(dataViews.get(i), childNodes));
             }
+
+            splitViewNodes.add(new TreeViewSplitNode(dataViews.get(i), childViewNodes));
         }
+
+        return splitViewNodes;
     }
 
     private TextView inflateDataView() {
-        TextView textView = (TextView) LayoutInflater.from(container.getContext())
-                .inflate(R.layout.item_treeview_data, container, false);
+        TextView textView = (TextView) LayoutInflater.from(this.getContext())
+                .inflate(R.layout.item_treeview_data, this, false);
         textView.setId(View.generateViewId());
         return textView;
     }
 
+    private void drawDataLines(Canvas canvas, TreeViewSplitNode node) {
+        TextView root = node.getNodeView();
+        for (int i = 0; i < node.getChildViews().size(); i++) {
+            TreeViewSplitNode childNode = node.getChildViews().get(i);
+            TextView child = childNode.getNodeView();
+
+            canvas.drawLine(
+                    root.getX() + (root.getWidth() / 2f),
+                    root.getY() + root.getHeight() + lineMargin,
+                    child.getX() + (child.getWidth() / 2f),
+                    child.getY() - lineMargin,
+                    linePaint
+            );
+
+            drawDataLines(canvas, childNode);
+        }
+    }
 }
