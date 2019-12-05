@@ -1,8 +1,8 @@
 package com.flaringapp.base.data.treeSplitter;
 
-import com.flaringapp.base.data.treeSplitter.exceptions.SplitterException;
-
 import java.util.List;
+
+import io.reactivex.Single;
 
 public interface TextTreeSplitter {
 
@@ -17,10 +17,10 @@ public interface TextTreeSplitter {
         void levelUp();
     }
 
-    ISplitNode split(
+    Single<ISplitNode> split(
             String text,
             String startSeparator,
             String endSeparator
-    ) throws SplitterException;
+    );
 
 }

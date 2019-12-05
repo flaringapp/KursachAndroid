@@ -1,10 +1,13 @@
 package com.flaringapp.base.data.treeSplitter.impl;
 
 import com.flaringapp.base.data.treeSplitter.TextTreeSplitter;
-import com.flaringapp.base.data.treeSplitter.exceptions.SplitterException;
 import com.flaringapp.base.data.treeSplitter.impl.validator.SplitterValidator;
 import com.flaringapp.base.data.treeSplitter.models.SplitNode;
 import com.flaringapp.base.data.treeSplitter.utils.SplitterUtils;
+
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class TextTreeSplitterImpl implements TextTreeSplitter {
 
@@ -15,29 +18,35 @@ public class TextTreeSplitterImpl implements TextTreeSplitter {
     }
 
     @Override
-    public ISplitNode split(
+    public Single<ISplitNode> split(
             String text,
             String startSeparator,
             String endSeparator
-    ) throws SplitterException {
-        splitterValidator.validateParams(text, startSeparator, endSeparator);
+    ) {
+        Single<ISplitNode> request = Single.create(emitter -> {
+            splitterValidator.validateParams(text, startSeparator, endSeparator);
 
-        SplitNode rootNode = new SplitNode();
+            SplitNode rootNode = new SplitNode();
 
-        for (int i = 0; i < text.length(); i++) {
-            if (SplitterUtils.isSeparatorAtIndex(text, startSeparator, i)) {
-                rootNode.levelDown();
-                rootNode.appendSeparatorSymbol(text.charAt(i));
-                i += startSeparator.length() - 1;
-            } else if (SplitterUtils.isSeparatorAtIndex(text, endSeparator, i)) {
-                rootNode.appendSeparatorSymbol(text.charAt(i));
-                rootNode.levelUp();
-                i += startSeparator.length() - 1;
-            } else {
-                rootNode.appendSymbol(text.charAt(i));
+            for (int i = 0; i < text.length(); i++) {
+                if (SplitterUtils.isSeparatorAtIndex(text, startSeparator, i)) {
+                    rootNode.levelDown();
+                    rootNode.appendSeparatorSymbol(text.charAt(i));
+                    i += startSeparator.length() - 1;
+                } else if (SplitterUtils.isSeparatorAtIndex(text, endSeparator, i)) {
+                    rootNode.appendSeparatorSymbol(text.charAt(i));
+                    rootNode.levelUp();
+                    i += startSeparator.length() - 1;
+                } else {
+                    rootNode.appendSymbol(text.charAt(i));
+                }
             }
-        }
 
-        return rootNode;
+            emitter.onSuccess(rootNode);
+        });
+
+        return request
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

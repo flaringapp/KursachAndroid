@@ -1,10 +1,11 @@
 package com.flaringapp.base.presentation.fragments.tree.impl;
 
 import com.flaringapp.base.data.treeSplitter.TextTreeSplitter;
-import com.flaringapp.base.data.treeSplitter.TextTreeSplitter.ISplitNode;
+import com.flaringapp.base.presentation.fragments.tree.ITreePresenter;
 import com.flaringapp.base.presentation.fragments.tree.ITreeView;
 import com.flaringapp.base.presentation.mvp.BasePresenter;
-import com.flaringapp.base.presentation.fragments.tree.ITreePresenter;
+
+import io.reactivex.disposables.Disposable;
 
 public class TreePresenter extends BasePresenter<ITreeView> implements ITreePresenter {
 
@@ -13,6 +14,8 @@ public class TreePresenter extends BasePresenter<ITreeView> implements ITreePres
     private String text;
     private String separatorStart;
     private String separatorEnd;
+
+    private Disposable splitterDisposable = null;
 
     public TreePresenter(TextTreeSplitter splitter) {
         this.splitter = splitter;
@@ -27,21 +30,30 @@ public class TreePresenter extends BasePresenter<ITreeView> implements ITreePres
 
     @Override
     public void onStart() {
-        try {
-            ISplitNode result = splitter.split(
-                    text,
-                    separatorStart,
-                    separatorEnd
-            );
+        splitterDisposable = splitter.split(
+                text,
+                separatorStart,
+                separatorEnd
+        ).subscribe(
+                (iSplitNode -> {
+                    if (view != null) {
+                        view.onTreeReady(iSplitNode);
+                    }
+                }),
+                (error -> {
+                    if (view != null) {
+                        view.handleError((Exception) error);
+                    }
+                })
+        );
+    }
 
-            if (view != null) {
-                view.onTreeReady(result);
-            }
-        } catch (Exception e) {
-            if (view != null) {
-                view.handleError(e);
-            }
+    @Override
+    public void onDestroy() {
+        if (splitterDisposable != null) {
+            splitterDisposable.dispose();
         }
+        super.onDestroy();
     }
 
     @Override
