@@ -2,7 +2,7 @@ package com.flaringapp.base.app.di.modules;
 
 import com.flaringapp.base.data.treeSplitter.impl.TextTreeSplitterImpl;
 import com.flaringapp.base.data.treeSplitter.impl.validator.SplitterValidator;
-import com.flaringapp.base.data.treeSplitter.impl.validator.SplitterValidatorImpl;
+import com.flaringapp.base.data.treeSplitter.impl.validator.impl.SplitterValidatorImpl;
 
 public final class DataModule extends DiModule {
 

@@ -1,4 +1,4 @@
-package com.flaringapp.base.data.treeSplitter.impl.validator;
+package com.flaringapp.base.data.treeSplitter.impl.validator.impl;
 
 import android.text.TextUtils;
 
@@ -8,6 +8,7 @@ import com.flaringapp.base.data.treeSplitter.exceptions.InvalidSeparatorsCountEx
 import com.flaringapp.base.data.treeSplitter.exceptions.InvalidSeparatorsOrderException;
 import com.flaringapp.base.data.treeSplitter.exceptions.SameSeparatorsException;
 import com.flaringapp.base.data.treeSplitter.exceptions.SplitterException;
+import com.flaringapp.base.data.treeSplitter.impl.validator.SplitterValidator;
 import com.flaringapp.base.data.treeSplitter.utils.SplitterUtils;
 
 public class SplitterValidatorImpl implements SplitterValidator {
