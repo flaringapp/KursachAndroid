@@ -12,7 +12,6 @@ import com.flaringapp.base.data.treeSplitter.TextTreeSplitter.ISplitNode;
 import com.flaringapp.base.presentation.fragments.tree.ITreePresenter;
 import com.flaringapp.base.presentation.mvp.BaseFragment;
 import com.flaringapp.base.presentation.fragments.tree.ITreeView;
-import com.flaringapp.base.presentation.views.tree.TreeView;
 
 public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeView {
 
@@ -38,7 +37,7 @@ public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeV
     }
 
     @Nullable
-    private TreeView treeView;
+    private TreeDrawMediator treeDrawMediator;
 
     @NonNull
     @Override
@@ -63,18 +62,20 @@ public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeV
 
     @Override
     protected void initViews(View view) {
-        treeView = view.findViewById(R.id.treeView);
+        treeDrawMediator = new TreeDrawMediator(
+                view.findViewById(R.id.treeViewContainer)
+        );
     }
 
     @Override
     protected void releaseViews() {
-        treeView = null;
+        treeDrawMediator = null;
     }
 
     @Override
     public void onTreeReady(ISplitNode data) {
-        if (treeView != null) {
-            treeView.setData(data);
+        if (treeDrawMediator != null) {
+            treeDrawMediator.setData(data);
         }
     }
 }

@@ -15,20 +15,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.flaringapp.base.presentation.views.scrollingLayout.ScrollingLayout
+    <com.otaliastudios.zoom.ZoomLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        app:transformation="centerInside"
+        app:transformationGravity="center"
+        app:minZoom="0.5"
+        app:maxZoom="10"
+        app:animationDuration="@integer/zoom_anim_duration"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textTitle"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.flaringapp.base.presentation.views.tree.TreeView
-            android:id="@+id/treeView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/treeViewContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTitle" />
 
-    </com.flaringapp.base.presentation.views.scrollingLayout.ScrollingLayout>
+    </com.otaliastudios.zoom.ZoomLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
