@@ -10,6 +10,11 @@ public interface TextTreeSplitter {
         String getData();
 
         List<ISplitNode> childNodes();
+
+        void appendSymbol(char symbol);
+        void appendSeparatorSymbol(char separatorSymbol);
+        void levelDown();
+        void levelUp();
     }
 
     Single<ISplitNode> split(
