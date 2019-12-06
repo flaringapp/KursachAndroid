@@ -14,6 +14,7 @@ import com.flaringapp.kursach.data.treeSplitter.exceptions.EmptyTextException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.InvalidSeparatorsCountException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.InvalidSeparatorsOrderException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.SameSeparatorsException;
+import com.flaringapp.kursach.data.treeSplitter.exceptions.SeparatorsSubIncludedException;
 import com.flaringapp.kursach.presentation.dialogs.message.MessageDialogParent;
 import com.flaringapp.kursach.presentation.dialogs.message.impl.MessageDialog;
 import com.flaringapp.kursach.presentation.fragments.tree.ITreePresenter;
@@ -110,6 +111,10 @@ public class TreeFragment extends BaseFragment<ITreePresenter> implements ITreeV
             params.add(((InvalidSeparatorsCountException) exception).getEndSeparatorCount());
         } else if (exception instanceof InvalidSeparatorsOrderException) {
             messageRes = R.string.error_separators_wrong_order;
+        } else if (exception instanceof SeparatorsSubIncludedException) {
+            messageRes = R.string.error_separators_sub_included;
+            params.add(((SeparatorsSubIncludedException) exception).getSeparatorMain());
+            params.add(((SeparatorsSubIncludedException) exception).getSeparatorSubIncluded());
         } else {
             super.handleError(exception);
         }

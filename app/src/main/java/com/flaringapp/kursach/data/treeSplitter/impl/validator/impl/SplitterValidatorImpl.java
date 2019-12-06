@@ -7,6 +7,7 @@ import com.flaringapp.kursach.data.treeSplitter.exceptions.EmptyTextException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.InvalidSeparatorsCountException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.InvalidSeparatorsOrderException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.SameSeparatorsException;
+import com.flaringapp.kursach.data.treeSplitter.exceptions.SeparatorsSubIncludedException;
 import com.flaringapp.kursach.data.treeSplitter.exceptions.SplitterException;
 import com.flaringapp.kursach.data.treeSplitter.impl.validator.SplitterValidator;
 import com.flaringapp.kursach.data.treeSplitter.utils.SplitterUtils;
@@ -26,6 +27,8 @@ public class SplitterValidatorImpl implements SplitterValidator {
 
         validateSameSeparators(startSeparator, endSeparator);
 
+        validateSeparatorsSubIncluded(startSeparator, endSeparator);
+
         validateSeparatorsCountInText(text, startSeparator, endSeparator);
 
         validateSeparatorsOrderInText(text, startSeparator, endSeparator);
@@ -42,6 +45,14 @@ public class SplitterValidatorImpl implements SplitterValidator {
     private void validateSameSeparators(String startSeparator, String endSeparator) throws SameSeparatorsException {
         if (startSeparator.equals(endSeparator)) {
             throw new SameSeparatorsException(startSeparator);
+        }
+    }
+
+    private void validateSeparatorsSubIncluded(String startSeparator, String endSeparator) throws SeparatorsSubIncludedException {
+        if (startSeparator.contains(endSeparator)) {
+            throw new SeparatorsSubIncludedException(startSeparator, endSeparator);
+        } else if (endSeparator.contains(startSeparator)) {
+            throw new SeparatorsSubIncludedException(endSeparator, startSeparator);
         }
     }
 

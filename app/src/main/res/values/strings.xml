@@ -9,9 +9,10 @@
     <string name="text">Text</string>
     <string name="error_text_input_empty">Text input can\'t be empty!</string>
     <string name="error_separator_input_empty">Separator should contain at least 1 symbol!</string>
-    <string name="error_separators_same">Separators can\'t be same! (%1$s)</string>
-    <string name="error_separators_wrong_count">Start separators count (%1$d) is not equal to end ones (%2$d)</string>
+    <string name="error_separators_same">Separators can\'t be same! (\'%1$s\')</string>
+    <string name="error_separators_wrong_count">Start separators count (\'%1$d\') is not equal to end ones (\'%2$d\')</string>
     <string name="error_separators_wrong_order">Separators order in your text is not correct! Closing separator on level 0 is before opening</string>
+    <string name="error_separators_sub_included">Separator (\'%1$s\') can\'t contain another separator (\'%2$s\')</string>
     <string name="treenize">Treenize!</string>
     <string name="tree_view">Tree view</string>
     <string name="ok">OK</string>
