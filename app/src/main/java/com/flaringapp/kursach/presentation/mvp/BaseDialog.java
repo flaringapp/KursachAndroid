@@ -26,6 +26,7 @@ public abstract class BaseDialog<T extends IBasePresenter> extends DialogFragmen
     @NonNull
     protected abstract T providePresenter();
 
+    @CallSuper
     protected void onInitPresenter() {
         presenter.initView(this);
     }

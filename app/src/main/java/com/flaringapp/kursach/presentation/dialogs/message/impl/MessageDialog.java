@@ -80,6 +80,8 @@ public class MessageDialog extends BaseDialog<IMessagePresenter>
 
     @Override
     protected void onInitPresenter() {
+        super.onInitPresenter();
+
         Bundle arguments = getArguments();
         if (arguments == null) return;
 
