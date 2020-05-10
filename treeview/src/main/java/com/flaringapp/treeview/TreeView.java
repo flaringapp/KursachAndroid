@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,6 +22,8 @@ public class TreeView extends ConstraintLayout {
 
     private static final float LINE_MARGIN = 8f;
     private static final float LINE_WIDTH = 4f;
+
+    private static final int BLOCK_MARGIN_HORIZONTAL = 12;
 
     private ISplitNodeData data = null;
 
@@ -97,6 +100,8 @@ public class TreeView extends ConstraintLayout {
         set.applyTo(this);
 
         viewData = new ViewSplitNode(dataView, drawData(dataView, data.childNodes()));
+
+        post(() -> measureNodeWidth(viewData));
     }
 
     private List<ViewSplitNode> drawData(View topView, List<? extends ISplitNodeData> data) {
@@ -160,6 +165,24 @@ public class TreeView extends ConstraintLayout {
         }
 
         return splitViewNodes;
+    }
+
+    private int measureNodeWidth(ViewSplitNode node) {
+        View nodeView = node.getNodeView();
+
+        int childWidth = 0;
+        for (int i = 0; i < node.getChildViews().size(); i++) {
+            childWidth += measureNodeWidth(node.getChildViews().get(i));
+        }
+
+        int targetWidth = Math.max(nodeView.getWidth(), childWidth);
+        targetWidth += ViewUtils.dp(getContext(), BLOCK_MARGIN_HORIZONTAL) * 2;
+
+        ViewGroup.LayoutParams params = nodeView.getLayoutParams();
+        params.width = targetWidth;
+        nodeView.setLayoutParams(params);
+
+        return targetWidth;
     }
 
     private TextView inflateDataView() {
