@@ -1,4 +1,4 @@
-package com.flaringapp.kursach.presentation.views.tree;
+package com.flaringapp.treeview;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,10 +12,6 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
-import com.flaringapp.kursach.R;
-import com.flaringapp.kursach.app.utils.ViewUtils;
-import com.flaringapp.kursach.data.treeSplitter.TextTreeSplitter.ISplitNode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +22,9 @@ public class TreeView extends ConstraintLayout {
     private static final float LINE_MARGIN = 8f;
     private static final float LINE_WIDTH = 4f;
 
-    private ISplitNode data = null;
+    private ISplitNodeData data = null;
 
-    private TreeViewSplitNode viewData = null;
+    private ViewSplitNode viewData = null;
 
     private Paint linePaint;
 
@@ -71,7 +67,7 @@ public class TreeView extends ConstraintLayout {
         }
     }
 
-    public void setData(ISplitNode node) {
+    public void setData(ISplitNodeData node) {
         this.data = node;
         invalidateData();
     }
@@ -86,7 +82,7 @@ public class TreeView extends ConstraintLayout {
         post(this::invalidate);
     }
 
-    private void drawData(ISplitNode data) {
+    private void drawData(ISplitNodeData data) {
         TextView dataView = inflateDataView();
         dataView.setText(data.getData());
         this.addView(dataView);
@@ -100,17 +96,17 @@ public class TreeView extends ConstraintLayout {
 
         set.applyTo(this);
 
-        viewData = new TreeViewSplitNode(dataView, drawData(dataView, data.childNodes()));
+        viewData = new ViewSplitNode(dataView, drawData(dataView, data.childNodes()));
     }
 
-    private List<TreeViewSplitNode> drawData(View topView, List<ISplitNode> data) {
+    private List<ViewSplitNode> drawData(View topView, List<? extends ISplitNodeData> data) {
         List<TextView> dataViews = new ArrayList<>();
 
-        List<TreeViewSplitNode> splitViewNodes = new ArrayList<>();
+        List<ViewSplitNode> splitViewNodes = new ArrayList<>();
 
         if (data.isEmpty()) return splitViewNodes;
 
-        for (ISplitNode node : data) {
+        for (ISplitNodeData node : data) {
             TextView dataView = inflateDataView();
             dataView.setText(node.getData());
             this.addView(dataView);
@@ -152,15 +148,15 @@ public class TreeView extends ConstraintLayout {
         set.applyTo(this);
 
         for (int i = 0; i < dataViews.size(); i++) {
-            List<ISplitNode> childNodes = data.get(i).childNodes();
+            List<? extends ISplitNodeData> childNodes = data.get(i).childNodes();
 
-            List<TreeViewSplitNode> childViewNodes = new ArrayList<>();
+            List<ViewSplitNode> childViewNodes = new ArrayList<>();
 
             if (childNodes.size() > 0) {
                 childViewNodes.addAll(drawData(dataViews.get(i), childNodes));
             }
 
-            splitViewNodes.add(new TreeViewSplitNode(dataViews.get(i), childViewNodes));
+            splitViewNodes.add(new ViewSplitNode(dataViews.get(i), childViewNodes));
         }
 
         return splitViewNodes;
@@ -173,10 +169,10 @@ public class TreeView extends ConstraintLayout {
         return textView;
     }
 
-    private void drawDataLines(Canvas canvas, TreeViewSplitNode node) {
+    private void drawDataLines(Canvas canvas, ViewSplitNode node) {
         TextView root = node.getNodeView();
         for (int i = 0; i < node.getChildViews().size(); i++) {
-            TreeViewSplitNode childNode = node.getChildViews().get(i);
+            ViewSplitNode childNode = node.getChildViews().get(i);
             TextView child = childNode.getNodeView();
 
             canvas.drawLine(

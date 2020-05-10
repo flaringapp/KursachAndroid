@@ -1,16 +1,16 @@
-package com.flaringapp.kursach.presentation.views.tree;
+package com.flaringapp.treeview;
 
 import android.widget.TextView;
 
 import java.util.List;
 
-class TreeViewSplitNode {
+class ViewSplitNode {
 
     private TextView nodeView;
 
-    private List<TreeViewSplitNode> childViews;
+    private List<ViewSplitNode> childViews;
 
-    TreeViewSplitNode(TextView nodeView, List<TreeViewSplitNode> childViews) {
+    ViewSplitNode(TextView nodeView, List<ViewSplitNode> childViews) {
         this.nodeView = nodeView;
         this.childViews = childViews;
     }
@@ -19,7 +19,7 @@ class TreeViewSplitNode {
         return nodeView;
     }
 
-    List<TreeViewSplitNode> getChildViews() {
+    List<ViewSplitNode> getChildViews() {
         return childViews;
     }
 

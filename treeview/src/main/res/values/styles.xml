@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="Text">
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+</resources>

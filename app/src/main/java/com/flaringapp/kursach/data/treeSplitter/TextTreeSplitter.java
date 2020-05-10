@@ -1,12 +1,14 @@
 package com.flaringapp.kursach.data.treeSplitter;
 
+import com.flaringapp.treeview.ISplitNodeData;
+
 import java.util.List;
 
 import io.reactivex.Single;
 
 public interface TextTreeSplitter {
 
-    interface ISplitNode {
+    interface ISplitNode extends ISplitNodeData {
         String getData();
 
         List<ISplitNode> childNodes();

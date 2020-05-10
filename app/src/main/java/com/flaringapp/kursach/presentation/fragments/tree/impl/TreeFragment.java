@@ -20,7 +20,7 @@ import com.flaringapp.kursach.presentation.dialogs.message.impl.MessageDialog;
 import com.flaringapp.kursach.presentation.fragments.tree.ITreePresenter;
 import com.flaringapp.kursach.presentation.mvp.BaseFragment;
 import com.flaringapp.kursach.presentation.fragments.tree.ITreeView;
-import com.flaringapp.kursach.presentation.views.tree.TreeView;
+import com.flaringapp.treeview.TreeView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,12 @@
 package com.flaringapp.kursach.data.treeSplitter.models;
 
 import com.flaringapp.kursach.data.treeSplitter.TextTreeSplitter.ISplitNode;
+import com.flaringapp.treeview.ISplitNodeData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplitNode implements ISplitNode {
+public class SplitNode implements ISplitNode, ISplitNodeData {
 
     private String data;
 
